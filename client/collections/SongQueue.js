@@ -10,6 +10,10 @@ var SongQueue = Songs.extend({
       }
     });
     this.on("ended", function(){
+      console.log('ended was triggered');
+      var playCount = this.at(0).get('playCount');
+      this.at(0).set({playCount: playCount + 1});
+      console.log(this.at(0).get('playCount'));
       this.removeSong();
       if (this.length === 1) {
         this.playFirst();
@@ -28,12 +32,22 @@ var SongQueue = Songs.extend({
         this.playNext();
       }
     });
+    // this.on("enqueued", function(song){
+    //   console.log('enqueue event heard');
+    //   this.addSong(song);
+    // });
   },
 
   playFirst: function(){ this.first().play(); },
 
   removeSong: function(){
     this.shift();
+  },
+
+  addSong: function(song) {
+    console.log('added song');
+    console.log(this);
+    this.add(song);
   },
 
   playNext: function(){
