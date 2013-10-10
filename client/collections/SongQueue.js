@@ -17,6 +17,17 @@ var SongQueue = Songs.extend({
         this.playNext();
       }
     });
+    this.on("dequeued", function(){
+      /* same functionality as this.ended
+      might want to extend functionality
+      to dequeue midqueue songs*/
+      this.removeSong();
+      if (this.length === 1) {
+        this.playFirst();
+      } else {
+        this.playNext();
+      }
+    });
   },
 
   playFirst: function(){ this.first().play(); },
